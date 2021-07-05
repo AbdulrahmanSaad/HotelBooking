@@ -26,8 +26,8 @@ export default class App extends Component {
     return (
       <View>
         <StatusBar
-          barStyle="light-content"
-          backgroundColor="#00A76E"
+          barStyle="dark-content"
+          backgroundColor="#fafafa"
         />
         <NavigationContainer>
           <Navigator initialRouteName="SignupLoginScreen">
