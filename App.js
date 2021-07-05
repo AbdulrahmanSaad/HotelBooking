@@ -24,14 +24,18 @@ export default class App extends Component {
 
   render() {
     return (
-      <View>
+      <View style={{ flex:1 }}>
         <StatusBar
           barStyle="dark-content"
           backgroundColor="#fafafa"
         />
         <NavigationContainer>
           <Navigator initialRouteName="SignupLoginScreen">
-            <Screen name="SignupLoginScreen" component={SignupLoginScreen} />
+            <Screen 
+            name="SignupLoginScreen" 
+            component={SignupLoginScreen}
+            options={{headerShown: false}}
+            />
           </Navigator>
         </NavigationContainer>
       </View>
