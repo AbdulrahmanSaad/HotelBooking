@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
     },
     text: {
         color: '#a9a9a9',
-        fontSize: 20,
+        fontSize: 25,
         fontWeight: 'bold',
     }
 })

@@ -4,16 +4,30 @@ import {
     Image,
     StyleSheet
 } from 'react-native';
-import { DualTabBarComponent } from '../Components/Index';
+import {
+    TextInputComponent,
+    DualTabBarComponent,
+} from '../Components/Index';
 
 class SignupLoginScreen extends Component {
 
-    onPress = () => { }
+    constructor(props) {
+        super(props);
+        this.state = { renderusernameField: true }
+    }
+    renderTabBarContent = () => {
+        this.setState({ renderusernameField: !this.state.renderusernameField })
+    }
     render() {
 
         const {
+            renderusernameField
+        } = this.state;
+        const {
             logoImage,
-            container
+            container,
+            emailLabelStyle,
+            userNameLabelStyle,
         } = styles;
 
         return (
@@ -23,7 +37,22 @@ class SignupLoginScreen extends Component {
                     style={logoImage}
                 />
                 <DualTabBarComponent
-                    onPress={() => this.onPress()}
+                    onPress={() => this.renderTabBarContent()}
+                />
+                {renderusernameField ? <TextInputComponent
+                    label={'Username'}
+                    labelStyle={userNameLabelStyle}
+                    placeholder={'Create your username'}
+                /> : null}
+                <TextInputComponent
+                    label={'E-mail'}
+                    labelStyle={emailLabelStyle}
+                    placeholder={'Create your e-mail'}
+                />
+                <TextInputComponent
+                    label={'Password'}
+                    labelStyle={emailLabelStyle}
+                    placeholder={'Create your password'}
                 />
             </View>
         )
@@ -41,6 +70,12 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         marginTop: 65
     },
+    userNameLabelStyle: {
+        marginTop: 45
+    },
+    emailLabelStyle: {
+        marginTop: 35
+    }
 })
 
 export { SignupLoginScreen };
