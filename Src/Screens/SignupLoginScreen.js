@@ -30,8 +30,8 @@ class SignupLoginScreen extends Component {
         const {
             logoImage,
             container,
+            passwordInput,
             emailLabelStyle,
-            passwordIconStyle,
             userNameLabelStyle,
         } = styles;
 
@@ -66,7 +66,7 @@ class SignupLoginScreen extends Component {
                             labelStyle={emailLabelStyle}
                             placeholder={'Create your password'}
                             secureTextEntry
-                            passwordTextInput
+                            textinputStyle={passwordInput}
                         />
                     </View>
                     <ButtonComponent
@@ -95,6 +95,9 @@ const styles = StyleSheet.create({
     emailLabelStyle: {
         marginTop: 35
     },
+    passwordInput: {
+        paddingRight: 40
+    }
 })
 
 export { SignupLoginScreen };

@@ -54,14 +54,14 @@ class TextInputComponent extends Component {
                 <TextInput
                     render={() =>
                         <BareRNTextInput
-                            style={textinputStyle ? textinputStyle : textinput}
+                            style={textinputStyle ? {...textinputStyle, ...textinput} : textinput}
                             placeholder={placeholder}
                             value={text}
                             onChangeText={(value) => this.onChangeText(value)}
                             secureTextEntry={secureTextEntry && !showText}
                         />
                     }
-                    style={textinputContainerStyle ? textinputContainerStyle : textinputContainer}
+                    style={textinputContainerStyle ? {...textinputContainerStyle, ...textinputContainer} : textinputContainer}
                     underlineColor={'#f7f7f7'}
                     right={secureTextEntry ?
                         <TextInput.Icon
