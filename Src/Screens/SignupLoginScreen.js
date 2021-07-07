@@ -2,9 +2,13 @@ import React, { Component } from 'react';
 import {
     View,
     Image,
-    StyleSheet
+    Platform,
+    StyleSheet,
+    ScrollView,
+    KeyboardAvoidingView
 } from 'react-native';
 import {
+    ButtonComponent,
     TextInputComponent,
     DualTabBarComponent,
 } from '../Components/Index';
@@ -27,34 +31,49 @@ class SignupLoginScreen extends Component {
             logoImage,
             container,
             emailLabelStyle,
+            passwordIconStyle,
             userNameLabelStyle,
         } = styles;
 
         return (
-            <View style={container} >
-                <Image
-                    source={require('../assets/logohopin.png')}
-                    style={logoImage}
-                />
-                <DualTabBarComponent
-                    onPress={() => this.renderTabBarContent()}
-                />
-                {renderusernameField ? <TextInputComponent
-                    label={'Username'}
-                    labelStyle={userNameLabelStyle}
-                    placeholder={'Create your username'}
-                /> : null}
-                <TextInputComponent
-                    label={'E-mail'}
-                    labelStyle={emailLabelStyle}
-                    placeholder={'Create your e-mail'}
-                />
-                <TextInputComponent
-                    label={'Password'}
-                    labelStyle={emailLabelStyle}
-                    placeholder={'Create your password'}
-                />
-            </View>
+            <KeyboardAvoidingView
+                behavior={Platform.OS === "ios" ? "padding" : 'position'}
+                style={container}
+                keyboardVerticalOffset={-300}
+            >
+                <ScrollView>
+                    <Image
+                        source={require('../assets/logohopin.png')}
+                        style={logoImage}
+                    />
+                    <DualTabBarComponent
+                        onPress={() => this.renderTabBarContent()}
+                    />
+                    {renderusernameField ? <TextInputComponent
+                        label={'Username'}
+                        labelStyle={userNameLabelStyle}
+                        placeholder={'Create your username'}
+                    /> : null}
+
+                    <TextInputComponent
+                        label={'E-mail'}
+                        labelStyle={emailLabelStyle}
+                        placeholder={'Create your e-mail'}
+                    />
+                    <View>
+                        <TextInputComponent
+                            label={'Password'}
+                            labelStyle={emailLabelStyle}
+                            placeholder={'Create your password'}
+                            secureTextEntry={true}
+                            passwordTextInput
+                        />
+                    </View>
+                    <ButtonComponent
+                        title={renderusernameField ? 'Sign up' : 'Log In'}
+                    />
+                </ScrollView>
+            </KeyboardAvoidingView>
         )
     }
 }
@@ -75,7 +94,7 @@ const styles = StyleSheet.create({
     },
     emailLabelStyle: {
         marginTop: 35
-    }
+    },
 })
 
 export { SignupLoginScreen };
