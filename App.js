@@ -7,6 +7,7 @@ import {
 import SplashScreen from 'react-native-splash-screen';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import { Provider as PaperProvider } from 'react-native-paper';
 import {
   SignupLoginScreen
 } from './Src/Screens/Index';
@@ -24,21 +25,23 @@ export default class App extends Component {
 
   render() {
     return (
-      <View style={{ flex:1 }}>
-        <StatusBar
-          barStyle="dark-content"
-          backgroundColor="#fafafa"
-        />
-        <NavigationContainer>
-          <Navigator initialRouteName="SignupLoginScreen">
-            <Screen 
-            name="SignupLoginScreen" 
-            component={SignupLoginScreen}
-            options={{headerShown: false}}
-            />
-          </Navigator>
-        </NavigationContainer>
-      </View>
+      <PaperProvider>
+        <View style={{ flex: 1 }}>
+          <StatusBar
+            barStyle="dark-content"
+            backgroundColor="#fafafa"
+          />
+          <NavigationContainer>
+            <Navigator initialRouteName="SignupLoginScreen">
+              <Screen
+                name="SignupLoginScreen"
+                component={SignupLoginScreen}
+                options={{ headerShown: false }}
+              />
+            </Navigator>
+          </NavigationContainer>
+        </View>
+      </PaperProvider>
     );
   }
 }

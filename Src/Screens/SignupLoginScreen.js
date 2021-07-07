@@ -65,7 +65,7 @@ class SignupLoginScreen extends Component {
                             label={'Password'}
                             labelStyle={emailLabelStyle}
                             placeholder={'Create your password'}
-                            secureTextEntry={true}
+                            secureTextEntry
                             passwordTextInput
                         />
                     </View>
