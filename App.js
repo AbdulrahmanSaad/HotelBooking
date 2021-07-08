@@ -9,6 +9,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Provider as PaperProvider } from 'react-native-paper';
 import {
+  HomeScreen,
   SignupLoginScreen
 } from './Src/Screens/Index';
 
@@ -26,7 +27,7 @@ export default class App extends Component {
   render() {
     return (
       <PaperProvider>
-        <View style={{ flex: 1 }}>
+        <View style={{flex: 1}}>
           <StatusBar
             barStyle="dark-content"
             backgroundColor="#fafafa"
@@ -36,6 +37,11 @@ export default class App extends Component {
               <Screen
                 name="SignupLoginScreen"
                 component={SignupLoginScreen}
+                options={{ headerShown: false }}
+              />
+              <Screen
+                name="HomeScreen"
+                component={HomeScreen}
                 options={{ headerShown: false }}
               />
             </Navigator>

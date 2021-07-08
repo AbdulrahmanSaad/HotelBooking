@@ -35,6 +35,10 @@ class SignupLoginScreen extends Component {
             userNameLabelStyle,
         } = styles;
 
+        const {
+            navigate
+        } = this.props.navigation;
+
         return (
             <KeyboardAvoidingView
                 behavior={Platform.OS === "ios" ? "padding" : 'position'}
@@ -71,6 +75,7 @@ class SignupLoginScreen extends Component {
                     </View>
                     <ButtonComponent
                         title={renderusernameField ? 'Sign up' : 'Log In'}
+                        onPress={() => navigate('HomeScreen')}
                     />
                 </ScrollView>
             </KeyboardAvoidingView>
