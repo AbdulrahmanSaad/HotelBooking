@@ -8,6 +8,16 @@ import {
 
 class ButtonComponent extends Component {
 
+    onPress = () => {
+        const {
+            onPress
+        } = this.props;
+
+        if (onPress) {
+            onPress();
+        }
+    }
+
     render() {
         const {
             text,
@@ -15,11 +25,17 @@ class ButtonComponent extends Component {
         } = styles;
         const {
             title,
-            buttonStyle
+            buttonStyle,
+            textStyle,
+            underlayColor
         } = this.props;
         return (
-            <TouchableHighlight style={buttonStyle ? buttonStyle : button}>
-                <Text style={text}>
+            <TouchableHighlight
+                style={buttonStyle ? buttonStyle : button}
+                onPress={this.onPress}
+                underlayColor={underlayColor}
+            >
+                <Text style={textStyle ? textStyle : text}>
                     {title}
                 </Text>
             </TouchableHighlight>
