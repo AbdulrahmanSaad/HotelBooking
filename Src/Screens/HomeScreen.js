@@ -5,7 +5,8 @@ import {
     Text,
     StyleSheet,
     FlatList,
-    Dimensions
+    Dimensions,
+    TouchableHighlight
 } from 'react-native';
 import {
     HomeScreenTextbutton
@@ -56,6 +57,10 @@ class HomeScreen extends Component {
         }
     }
 
+    onPress = () => {
+        alert()
+    }
+
     render() {
         const {
             tab1Selected,
@@ -104,10 +109,14 @@ class HomeScreen extends Component {
                 <FlatList
                     data={data}
                     renderItem={() => (
-                        <Image
-                            source={require('../assets/img.png')}
-                            style={imgItem}
-                        />
+                        <TouchableHighlight
+                            onPress={() => this.onPress()}
+                        >
+                            <Image
+                                source={require('../assets/img.png')}
+                                style={imgItem}
+                            />
+                        </TouchableHighlight>
                     )}
                     horizontal
                     keyExtractor={item => item}
