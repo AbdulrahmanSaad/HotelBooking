@@ -31,7 +31,7 @@ class ButtonComponent extends Component {
         } = this.props;
         return (
             <TouchableHighlight
-                style={buttonStyle ? buttonStyle : button}
+                style={buttonStyle ? { ...button, ...buttonStyle } : button }
                 onPress={this.onPress}
                 underlayColor={underlayColor}
             >
