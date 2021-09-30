@@ -12,10 +12,12 @@ class TextComponent extends Component {
         } = styles;
         const {
             text,
-            labelStyle
+            style
         } = this.props;
+
         return (
-            <Text style={labelStyle ? { ...textStyle, ...labelStyle } : textStyle}>
+            <Text style={
+                style ? { ...textStyle, ...style } : textStyle }>
                 {text}
             </Text>
         );
@@ -29,6 +31,8 @@ const styles = StyleSheet.create({
         marginTop: 45,
         marginLeft: 25,
         fontWeight: 'bold',
+        fontStyle: 'normal',
+        fontFamily: 'Nunito Sans',
     }
 })
 

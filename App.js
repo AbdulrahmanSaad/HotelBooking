@@ -9,8 +9,9 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Provider as PaperProvider } from 'react-native-paper';
 import {
+  OnboardingScreen,
+  SignupLoginScreen,
   HomeScreen,
-  SignupLoginScreen
 } from './Src/Screens/Index';
 
 const Stack = createStackNavigator();
@@ -33,7 +34,12 @@ export default class App extends Component {
             backgroundColor="#fafafa"
           />
           <NavigationContainer>
-            <Navigator initialRouteName="SignupLoginScreen">
+            <Navigator initialRouteName="OnboardingScreen">
+            <Screen
+                name="OnboardingScreen"
+                component={OnboardingScreen}
+                options={{ headerShown: false }}
+              />
               <Screen
                 name="SignupLoginScreen"
                 component={SignupLoginScreen}
