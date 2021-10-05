@@ -3,6 +3,7 @@ import {
     Text,
     StyleSheet
 } from 'react-native';
+import { calculateWidthAndHeightPrecentage } from '../Helpers/Helpers';
 
 class TextComponent extends Component {
 
@@ -28,8 +29,8 @@ const styles = StyleSheet.create({
     textStyle: {
         color: '#555555',
         fontSize: 20,
-        marginTop: 45,
-        marginLeft: 25,
+        marginTop: calculateWidthAndHeightPrecentage('width', 45),
+        marginLeft: calculateWidthAndHeightPrecentage('width', 25),
         fontWeight: 'bold',
         fontStyle: 'normal',
         fontFamily: 'Nunito Sans',

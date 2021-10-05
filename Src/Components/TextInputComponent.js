@@ -9,6 +9,7 @@ import { TextInput } from 'react-native-paper';
 import {
     TextComponent
 } from './Index';
+import { calculateWidthAndHeightPrecentage } from '../Helpers/Helpers';
 
 class TextInputComponent extends Component {
 
@@ -81,7 +82,7 @@ const styles = StyleSheet.create({
     textinputContainer: {
         height: 55,
         alignSelf: 'center',
-        marginTop: 20,
+        marginTop: calculateWidthAndHeightPrecentage('height', 20),
         borderRadius: 50,
         borderTopEndRadius: 50,
         borderTopLeftRadius: 50,
@@ -92,7 +93,7 @@ const styles = StyleSheet.create({
         height: 55,
         alignSelf: 'center',
         borderRadius: 50,
-        paddingHorizontal: 20,
+        paddingHorizontal: calculateWidthAndHeightPrecentage('width', 20),
         backgroundColor: '#ffffff'
     }
 })

@@ -5,34 +5,68 @@ import {
     Platform,
     StyleSheet,
     ScrollView,
-    KeyboardAvoidingView
+    KeyboardAvoidingView,
+    Dimensions,
+    TouchableWithoutFeedback
 } from 'react-native';
 import {
     ButtonComponent,
     TextInputComponent,
-    DualTabBarComponent,
+    TabBarComponent,
+    TextComponent
 } from '../Components/Index';
+import { calculateWidthAndHeightPrecentage } from '../Helpers/Helpers';
 
 class SignupLoginScreen extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { renderusernameField: true }
+        this.state = {
+            loginTabPressed: false,
+            signUpTabPressed: !this.signUpTabPressed,
+            renderusernameField: !this.loginTabPressed
+        }
     }
-    renderTabBarContent = () => {
-        this.setState({ renderusernameField: !this.state.renderusernameField })
+    renderTabBarContent = (tabPressed) => {
+        switch (tabPressed) {
+            case 'signup':
+                this.setState({
+                    loginTabPressed: false,
+                    signUpTabPressed: true,
+                    renderusernameField: true
+                });
+                return
+            case 'login':
+                this.setState({
+                    loginTabPressed: true,
+                    signUpTabPressed: false,
+                    renderusernameField: false
+                })
+                return
+            default:
+                break;
+        }
     }
     render() {
 
         const {
+            signUpTabPressed,
+            loginTabPressed,
             renderusernameField
         } = this.state;
+
         const {
             logoImage,
+            textStyle,
+            selectedButtonStyle,
             container,
-            passwordInput,
             emailLabelStyle,
             userNameLabelStyle,
+            dualTabBarContainer,
+            forgetPasswordText,
+            forgetPasswordTextWrapper,
+            signupButtonStyle,
+            loginbuttonStyle
         } = styles;
 
         const {
@@ -49,10 +83,22 @@ class SignupLoginScreen extends Component {
                     <Image
                         source={require('../assets/logohopin.png')}
                         style={logoImage}
+                        resizeMode='contain'
                     />
-                    <DualTabBarComponent
-                        onPress={() => this.renderTabBarContent()}
-                    />
+                    <View style={dualTabBarContainer}>
+                        <TabBarComponent
+                            title={'Log In'}
+                            textStyle={loginTabPressed ? textStyle : null}
+                            buttonStyle={loginTabPressed ? selectedButtonStyle : null}
+                            onPress={() => this.renderTabBarContent('login')}
+                        />
+                        <TabBarComponent
+                            title={'Sign Up'}
+                            textStyle={signUpTabPressed ? textStyle : null}
+                            buttonStyle={signUpTabPressed ? selectedButtonStyle : null}
+                            onPress={() => this.renderTabBarContent('signup')}
+                        />
+                    </View>
                     {renderusernameField ? <TextInputComponent
                         label={'Username'}
                         labelStyle={userNameLabelStyle}
@@ -64,18 +110,27 @@ class SignupLoginScreen extends Component {
                         labelStyle={emailLabelStyle}
                         placeholder={'Create your e-mail'}
                     />
-                    <View>
-                        <TextInputComponent
-                            label={'Password'}
-                            labelStyle={emailLabelStyle}
-                            placeholder={'Create your password'}
-                            secureTextEntry
-                            textinputStyle={passwordInput}
-                        />
-                    </View>
+                    <TextInputComponent
+                        label={'Password'}
+                        labelStyle={emailLabelStyle}
+                        placeholder={'Create your password'}
+                        secureTextEntry
+                    />
+                    {renderusernameField ? null : 
+                    <TouchableWithoutFeedback
+                        onPress={() => { alert() }}
+                    >
+                        <View style={forgetPasswordTextWrapper}>
+                            <TextComponent
+                                text={'Forget Password?'}
+                                style={forgetPasswordText}
+                            />
+                        </View>
+                    </TouchableWithoutFeedback>}
                     <ButtonComponent
                         title={renderusernameField ? 'Sign up' : 'Log In'}
                         onPress={() => navigate('HomeScreen')}
+                        buttonStyle={renderusernameField ? signupButtonStyle : loginbuttonStyle}
                     />
                 </ScrollView>
             </KeyboardAvoidingView>
@@ -83,25 +138,60 @@ class SignupLoginScreen extends Component {
     }
 }
 
+const {
+    width,
+} = Dimensions.get('window');
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fafafa'
+        backgroundColor: '#fafafa',
     },
     logoImage: {
-        width: 60,
-        height: 60,
+        width: calculateWidthAndHeightPrecentage('width', 60),
+        height: calculateWidthAndHeightPrecentage('width', 60),
+        minWidth: 60,
+        minHeight: 60,
         alignSelf: 'center',
-        marginTop: 65
+        marginTop: calculateWidthAndHeightPrecentage('height', 65)
+    },
+    dualTabBarContainer: {
+        flexDirection: 'row'
+    },
+    textStyle: {
+        fontWeight: '700',
+        color: '#3e3e3e',
+    },
+    selectedButtonStyle: {
+        borderBottomWidth: 3,
+        borderBottomColor: '#00a76e'
     },
     userNameLabelStyle: {
-        marginTop: 45
+        marginTop: calculateWidthAndHeightPrecentage('height', 45)
     },
     emailLabelStyle: {
-        marginTop: 35
+        marginTop: calculateWidthAndHeightPrecentage('height', 35)
     },
-    passwordInput: {
-        paddingRight: 40
+    forgetPasswordTextWrapper: {
+        width: calculateWidthAndHeightPrecentage('width', 120),
+        height: calculateWidthAndHeightPrecentage('height', 25),
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: calculateWidthAndHeightPrecentage('height', 30),
+        marginLeft: calculateWidthAndHeightPrecentage('width', width - 140),
+    },
+    forgetPasswordText: {
+        fontSize: 14,
+        fontWeight: 'normal',
+        marginTop: 0,
+        marginLeft: 0,
+    },
+    signupButtonStyle: {
+        marginTop: calculateWidthAndHeightPrecentage('height', 40),
+        marginBottom: calculateWidthAndHeightPrecentage('height', 210),
+    },
+    loginbuttonStyle: {
+        marginBottom: calculateWidthAndHeightPrecentage('height', 415),
     }
 })
 

@@ -5,6 +5,7 @@ import {
     TouchableHighlight,
     Dimensions,
 } from 'react-native';
+import { calculateWidthAndHeightPrecentage } from '../Helpers/Helpers';
 
 class ButtonComponent extends Component {
 
@@ -27,13 +28,12 @@ class ButtonComponent extends Component {
             title,
             buttonStyle,
             textStyle,
-            underlayColor
         } = this.props;
         return (
             <TouchableHighlight
                 style={buttonStyle ? { ...button, ...buttonStyle } : button }
                 onPress={this.onPress}
-                underlayColor={underlayColor}
+                underlayColor={0}
             >
                 <Text style={textStyle ? textStyle : text}>
                     {title}
@@ -51,12 +51,12 @@ const styles = StyleSheet.create({
     button: {
         width: width - 50,
         height: 57,
-        marginTop: 40,
+        marginTop: calculateWidthAndHeightPrecentage('height', 40),
         backgroundColor: '#00a76e',
         justifyContent: 'center',
         alignItems: 'center',
         alignSelf: 'center',
-        borderRadius: 50
+        borderRadius: 50,
     },
     text: {
         color: '#ffffff',
