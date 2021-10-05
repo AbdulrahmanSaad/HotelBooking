@@ -5,6 +5,7 @@ import {
     Dimensions,
     TouchableHighlight,
 } from 'react-native';
+import { calculateWidthAndHeightPrecentage } from '../Helpers/Helpers';
 
 class TabBarComponent extends Component {
 
@@ -50,8 +51,9 @@ const {
 const styles = StyleSheet.create({
     touchableView: {
         width: width / 2,
-        height: 66,
-        marginTop: 40,
+        height: calculateWidthAndHeightPrecentage('height', 60),
+        minHeight: 66,
+        marginTop: calculateWidthAndHeightPrecentage('height', 40),
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: '#ffffff'
@@ -59,8 +61,9 @@ const styles = StyleSheet.create({
     },
     text: {
         color: '#a9a9a9',
-        fontSize: 25,
-        fontWeight: 'bold',
+        fontSize: 20,
+        fontWeight: '600',
+        lineHeight: 27.28
     }
 })
 

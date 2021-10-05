@@ -10,7 +10,7 @@ import {
     ButtonComponent
 } from '../Components/Index';
 
-import { Helpers } from '../Helpers/Helpers';
+import { calculateWidthAndHeightPrecentage } from '../Helpers/Helpers';
 
 class OnboardingScreen extends Component {
 
@@ -50,9 +50,6 @@ class OnboardingScreen extends Component {
         );
     }
 }
-
-const measuresHelper = new Helpers();
-const { calculateWidthAndHeightPrecentage } = measuresHelper;
 
 let imgDimensions = {
     width: calculateWidthAndHeightPrecentage('width', 326),
