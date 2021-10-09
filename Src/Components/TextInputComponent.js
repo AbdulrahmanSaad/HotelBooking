@@ -16,22 +16,26 @@ class TextInputComponent extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            text: '',
             showText: false
         }
     }
 
     onChangeText = (value) => {
-        this.setState({ text: value })
+        const {
+            onChangeText
+        } = this.props;
+
+        if (onChangeText){
+            onChangeText(value);
+        }
     }
 
     handleInputVisibility = () => {
         this.setState({ showText: !this.state.showText })
     }
-
+    
     render() {
         const {
-            text,
             showText
         } = this.state;
         const {
@@ -39,7 +43,9 @@ class TextInputComponent extends Component {
             textinputContainer
         } = styles;
         const {
+            value,
             label,
+            onBlur,
             labelStyle,
             placeholder,
             textinputStyle,
@@ -57,9 +63,10 @@ class TextInputComponent extends Component {
                         <BareRNTextInput
                             style={textinputStyle ? {...textinputStyle, ...textinput} : textinput}
                             placeholder={placeholder}
-                            value={text}
+                            value={value}
                             onChangeText={(value) => this.onChangeText(value)}
                             secureTextEntry={secureTextEntry && !showText}
+                            onBlur={onBlur}
                         />
                     }
                     style={textinputContainerStyle ? {...textinputContainerStyle, ...textinputContainer} : textinputContainer}
