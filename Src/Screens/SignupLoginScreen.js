@@ -16,12 +16,16 @@ import {
     TextComponent
 } from '../Components/Index';
 import { calculateWidthAndHeightPrecentage } from '../Helpers/Helpers';
+import auth from '@react-native-firebase/auth';
 
 class SignupLoginScreen extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
+            email: '',
+            password: '',
+            username: '',
             loginTabPressed: false,
             signUpTabPressed: !this.signUpTabPressed,
             renderusernameField: !this.loginTabPressed
@@ -31,6 +35,9 @@ class SignupLoginScreen extends Component {
         switch (tabPressed) {
             case 'signup':
                 this.setState({
+                    email: '',
+                    password: '',
+                    username: '',
                     loginTabPressed: false,
                     signUpTabPressed: true,
                     renderusernameField: true
@@ -38,6 +45,9 @@ class SignupLoginScreen extends Component {
                 return
             case 'login':
                 this.setState({
+                    email: '',
+                    password: '',
+                    username: '',
                     loginTabPressed: true,
                     signUpTabPressed: false,
                     renderusernameField: false
@@ -47,12 +57,66 @@ class SignupLoginScreen extends Component {
                 break;
         }
     }
+
+    enterUsername = (username) => {
+        this.setState({ username: username.trim() })
+    }
+    enterEmail = (email) => {
+        this.setState({ email: email.trim() })
+    }
+    enterPassword = (password) => {
+        this.setState({ password: password.trim() })
+    }
+
+    onBlurEmail = () => {
+        if (this.state.email && !/^\w+([-]?\w+)*@\w+([-]?\w+)*(\.\w{2,3})+$/.test(this.state.email)) {
+            alert('please enter a valid email form')
+            this.setState({email: ''})
+            return
+        }
+    }
+
+    signUp = () => {
+
+        const {
+            email,
+            password,
+            username
+        } = this.state;
+
+        if (email && password && username) {
+            auth().createUserWithEmailAndPassword(email, password).then(
+                (res) => {
+                    res.user.updateProfile({
+                        displayName: username
+                    })
+                }
+            ).catch(() => alert('There is already user with this email'))
+        } else alert('Fill all fields please')
+    }
+
+    onBlurPassword = () => {
+        if(this.state.password.length < 6){
+            alert('Please enter password with at least 6 characters')
+        }
+    }
+
+    login = () => {
+
+        if (email && password) {
+            auth().signInWithEmailAndPassword(email, password)
+        } else alert('Fill all fields please')
+    }
+
     render() {
 
         const {
             signUpTabPressed,
             loginTabPressed,
-            renderusernameField
+            renderusernameField,
+            email,
+            password,
+            username
         } = this.state;
 
         const {
@@ -68,10 +132,6 @@ class SignupLoginScreen extends Component {
             signupButtonStyle,
             loginbuttonStyle
         } = styles;
-
-        const {
-            navigate
-        } = this.props.navigation;
 
         return (
             <KeyboardAvoidingView
@@ -103,33 +163,41 @@ class SignupLoginScreen extends Component {
                         label={'Username'}
                         labelStyle={userNameLabelStyle}
                         placeholder={'Create your username'}
+                        onChangeText={this.enterUsername}
+                        value={username}
                     /> : null}
 
                     <TextInputComponent
                         label={'E-mail'}
                         labelStyle={emailLabelStyle}
                         placeholder={'Create your e-mail'}
+                        onChangeText={this.enterEmail}
+                        value={email}
+                        onBlur={this.onBlurEmail}
                     />
                     <TextInputComponent
                         label={'Password'}
                         labelStyle={emailLabelStyle}
                         placeholder={'Create your password'}
+                        onChangeText={this.enterPassword}
+                        value={password}
                         secureTextEntry
+                        onBlur={this.onBlurPassword}
                     />
-                    {renderusernameField ? null : 
-                    <TouchableWithoutFeedback
-                        onPress={() => { alert() }}
-                    >
-                        <View style={forgetPasswordTextWrapper}>
-                            <TextComponent
-                                text={'Forget Password?'}
-                                style={forgetPasswordText}
-                            />
-                        </View>
-                    </TouchableWithoutFeedback>}
+                    {renderusernameField ? null :
+                        <TouchableWithoutFeedback
+                            onPress={() => { alert() }}
+                        >
+                            <View style={forgetPasswordTextWrapper}>
+                                <TextComponent
+                                    text={'Forget Password?'}
+                                    style={forgetPasswordText}
+                                />
+                            </View>
+                        </TouchableWithoutFeedback>}
                     <ButtonComponent
                         title={renderusernameField ? 'Sign up' : 'Log In'}
-                        onPress={() => navigate('HomeScreen')}
+                        onPress={renderusernameField ? this.signUp : this.login}
                         buttonStyle={renderusernameField ? signupButtonStyle : loginbuttonStyle}
                     />
                 </ScrollView>

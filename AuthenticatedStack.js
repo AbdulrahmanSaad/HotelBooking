@@ -9,8 +9,6 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Provider as PaperProvider } from 'react-native-paper';
 import {
-  OnboardingScreen,
-  SignupLoginScreen,
   HomeScreen,
 } from './Src/Screens/Index';
 
@@ -20,7 +18,8 @@ const {
   Screen
 } = Stack;
 
-export default class App extends Component {
+export default class AuthenticatedStack extends Component {
+
   componentDidMount() {
     SplashScreen.hide();
   }
@@ -34,17 +33,7 @@ export default class App extends Component {
             backgroundColor="#fafafa"
           />
           <NavigationContainer>
-            <Navigator initialRouteName="OnboardingScreen">
-            <Screen
-                name="OnboardingScreen"
-                component={OnboardingScreen}
-                options={{ headerShown: false }}
-              />
-              <Screen
-                name="SignupLoginScreen"
-                component={SignupLoginScreen}
-                options={{ headerShown: false }}
-              />
+            <Navigator initialRouteName="HomeScreen">
               <Screen
                 name="HomeScreen"
                 component={HomeScreen}
