@@ -103,6 +103,11 @@ class SignupLoginScreen extends Component {
 
     login = () => {
 
+        const {
+            email,
+            password
+        } = this.state;
+
         if (email && password) {
             auth().signInWithEmailAndPassword(email, password)
         } else alert('Fill all fields please')

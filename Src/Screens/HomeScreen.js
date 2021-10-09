@@ -12,6 +12,7 @@ import {
     TextComponent
 } from '../Components/Index';
 import { calculateWidthAndHeightPrecentage } from '../Helpers/Helpers';
+import auth from '@react-native-firebase/auth';
 
 let reccomendData = [1, 2, 3, 4, 5, 6]
 let popularData = [1, 2, 3, 4, 5]
@@ -62,6 +63,10 @@ class HomeScreen extends Component {
         alert()
     }
 
+    renderUsername = () => {
+        return `Good Morning,\n${auth().currentUser.displayName}!`
+    }
+
     render() {
         const {
             tab1Selected,
@@ -85,7 +90,7 @@ class HomeScreen extends Component {
                     style={image}
                 />
                 <TextComponent
-                text={'Good Morning,\nAbdelrahman!'}
+                text={this.renderUsername()}
                 style={text}
                 />
                 <View style={buttonsContainer}>
