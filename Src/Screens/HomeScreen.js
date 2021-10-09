@@ -2,15 +2,16 @@ import React, { Component } from 'react';
 import {
     View,
     Image,
-    Text,
     StyleSheet,
     FlatList,
     Dimensions,
-    TouchableHighlight
+    TouchableWithoutFeedback
 } from 'react-native';
 import {
-    HomeScreenTextbutton
-} from '../Components/Index'
+    HomeScreenTextbutton,
+    TextComponent
+} from '../Components/Index';
+import { calculateWidthAndHeightPrecentage } from '../Helpers/Helpers';
 
 let reccomendData = [1, 2, 3, 4, 5, 6]
 let popularData = [1, 2, 3, 4, 5]
@@ -83,16 +84,15 @@ class HomeScreen extends Component {
                     source={require('../assets/award.png')}
                     style={image}
                 />
-                <Text
-                    style={text}
-                    numberOfLines={2}
-                >
-                    Good Morning,{'\n'}Abdelrahman!
-                </Text>
+                <TextComponent
+                text={'Good Morning,\nAbdelrahman!'}
+                style={text}
+                />
                 <View style={buttonsContainer}>
                     <HomeScreenTextbutton
                         title={'Reccomend'}
                         isSelected={tab1Selected}
+
                         onPress={() => this.tabSelected(1)}
                     />
                     <HomeScreenTextbutton
@@ -109,14 +109,14 @@ class HomeScreen extends Component {
                 <FlatList
                     data={data}
                     renderItem={() => (
-                        <TouchableHighlight
+                        <TouchableWithoutFeedback
                             onPress={() => this.onPress()}
                         >
                             <Image
                                 source={require('../assets/img.png')}
                                 style={imgItem}
                             />
-                        </TouchableHighlight>
+                        </TouchableWithoutFeedback>
                     )}
                     horizontal
                     keyExtractor={item => item}
@@ -134,25 +134,27 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#fafafa',
-        paddingHorizontal: 25
+        paddingHorizontal: calculateWidthAndHeightPrecentage('height', 25),
     },
     image: {
-        width: 24,
-        height: 24,
-        top: 37.33,
-        alignSelf: 'flex-end',
-        right: 27
+        width: calculateWidthAndHeightPrecentage('width', 24),
+        height: calculateWidthAndHeightPrecentage('height', 24),
+        top: calculateWidthAndHeightPrecentage('height', 37.33),
+        left: calculateWidthAndHeightPrecentage('width', 329),
     },
     text: {
         fontSize: 30,
         color: '#3e3e3e',
-        marginTop: 124,
-        fontWeight: 'bold'
+        top: calculateWidthAndHeightPrecentage('height', 37),
+        fontWeight: '700',
+        lineHeight: 38.19,
+        marginLeft: 0
     },
     buttonsContainer: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        marginTop: 50
+        alignItems: 'center',
+        top: calculateWidthAndHeightPrecentage('height', 110),
     },
     imgItem: {
         width: 256,
